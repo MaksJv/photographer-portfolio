@@ -1,0 +1,329 @@
+.person {
+    color: var(--color-text);
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 65px;
+    padding-bottom: 65px;
+    background-color: rgb(20, 20, 20);
+}
+
+.person__info {
+    padding-left: 20px;
+}
+
+.person__info-title {
+    font-size: 15px;
+    line-height: 25.5px;
+    font-weight: 700;
+    letter-spacing: normal;
+    width: 33.3333%;
+}
+
+.person__experience {
+    font-size: 38px;
+    line-height: 54.6px;
+    font-weight: 700;
+    letter-spacing: normal;
+    width: 33.3333%;
+}
+
+.person__container {
+    display: flex;
+    justify-content: space-between;
+    height: auto;
+    width: 100%;
+    margin: auto;
+}
+
+.person__category {
+    width: 33.33333%;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    word-wrap: break-word;
+}
+
+.person__category-label {
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.person__category-label,
+.person__awards-label {
+    font-size: 21px;
+    line-height: 31.5px;
+    font-weight: 900;
+    letter-spacing: 6.3px;
+    width: 33.33333%;
+}
+
+.person__category-description {
+    margin-top: 15px;
+}
+
+.person__category-description,
+.person__quote-author {
+    color: rgb(169, 169, 169);
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    line-height: 25.5px;
+    font-weight: 400;
+    letter-spacing: normal;
+    margin-bottom: 15px;
+}
+
+.person__social-links {
+    width: 40%;
+    height: auto;
+    color: var(--color-text);
+    display: flex;
+    justify-content: space-between;
+}
+
+.person__social-links svg {
+    width: 25px;
+    height: 25px;
+    transition: fill 0.3s ease;
+}
+
+.person__social-link--behance:hover svg path,
+.person__social-link--pinterest:hover svg path,
+.person__social-link--instagram:hover svg path,
+.person__social-link--twitter:hover svg path {
+    fill: rgb(100, 204, 218);
+}
+
+.person__social-link--twitter {
+    padding-top: 5px;
+}
+
+.person__awards {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80%;
+    margin-top: 15px;
+}
+
+.person__award-link {
+    color: var(--color-text);
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    line-height: 25.5px;
+    font-weight: 400;
+    letter-spacing: normal;
+}
+
+.person__quote {
+    font-size: 38px;
+    line-height: 54.6px;
+    font-weight: 700;
+    letter-spacing: normal;
+    width: 100%;
+}
+
+.person__project-link {
+    color: var(--color-text);
+    font-family: 'Roboto', sans-serif;
+    font-size: 19px;
+    line-height: 30.4px;
+    font-weight: 700;
+    letter-spacing: normal;
+    width: 100%;
+    text-decoration: none;
+}
+
+.person__projects {
+    /* border: 2px solid blue; */
+    width: 100%;
+    margin-top: 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-left: 20px;
+}
+
+.person__project {
+    width: 33.33333%;
+    aspect-ratio: 3/4;
+    padding: 30px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.person__projects--title {
+    display: flex;
+    flex-direction: column;
+    width: 33.33333%;
+    padding: 20px 20px;
+}
+
+.person__project--sands {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background-image: url(../img/white-sands.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+.person__project--walking {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background-image: url(../img/sunset.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+.person__release--btn {
+    border-radius: 10px;
+    width: 60%;
+    aspect-ratio: 3;
+    margin: 0 auto;
+    background-color: aliceblue;
+    color: rgb(26, 4, 4);
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 700;
+    letter-spacing: normal;
+    padding: 5px;
+}
+
+.person__release--timer {
+    width: 100%;
+    margin: auto;
+    font-size: 20px;
+    line-height: 31.5px;
+    font-weight: 600;
+    letter-spacing: 6.3px;
+    color: rgb(16, 167, 212);
+    text-align: center;
+    margin-top: 15px;
+}
+
+@media (max-width: 1080px) {
+    .person__quote {
+        font-size: 30px;
+    }
+
+    .person__release--btn {
+        width: 60%;
+        aspect-ratio: 2;
+        margin: 0 auto;
+        font-size: 15px;
+        line-height: 20px;
+        font-weight: 600;
+        letter-spacing: normal;
+        padding: 3px;
+    }
+
+    .person__release--timer {
+        font-size: 20px;
+        line-height: 25px;
+        font-weight: 600;
+        letter-spacing: 5px;
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .person__projects {
+        width: 100%;
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        padding-left: 20px;
+        margin: auto;
+    }
+
+    .person__container {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        margin: auto;
+        align-items: center;
+    }
+
+    .person__experience {
+        font-size: 34px;
+        line-height: 54.6px;
+        font-weight: 700;
+        letter-spacing: normal;
+        padding-left: 20px;
+        width: 33.3333%;
+    }
+
+    .person__quote {
+        font-size: 35px;
+        font-weight: 700;
+        letter-spacing: normal;
+    }
+
+    .person__project {
+        width: 100%;
+        padding: 20px 15px;
+
+    }
+
+    .person__category {
+        width: 100%;
+        margin: auto;
+    }
+
+    .person__project--sands,
+    .person__project--walking,
+    .person__experience,
+    .person__projects--title,
+    .person__project-link {
+        width: 86%;
+    }
+
+    .person__project-link {
+        align-self: center;
+    }
+
+    .person__projects--title {
+        width: 100%;
+        padding: 5px 20px;
+    }
+
+    .person__release--btn {
+        font-size: 20px;
+        line-height: 25.5px;
+        font-weight: 700;
+        letter-spacing: normal;
+        padding: 10px;
+        width: 50%;
+        aspect-ratio: 3;
+    }
+
+    .person__release--timer {
+        font-size: 25px;
+        line-height: 30px;
+        font-weight: 600;
+        letter-spacing: 5px;
+        margin-top: 10px;
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 520px) {
+    .person__release--btn {
+        padding: 5px;
+        width: 50%;
+        aspect-ratio: 3;
+    }
+}

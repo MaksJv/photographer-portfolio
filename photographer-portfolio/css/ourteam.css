@@ -1,0 +1,362 @@
+:root {
+    --font-family: 'Manrope', sans-serif;
+}
+
+.container-our {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: clamp(10px, 5vw, 40px);
+    background-image: url('../img/ourteampeople.png');
+    background-size: cover;           /* Залишаємо, щоб картинка покривала весь блок */
+    background-repeat: no-repeat;     /* Забороняємо повторення картинки */
+    background-position: right bottom;/* Встановлюємо позицію правий нижній кут */
+    padding-top: 110px;
+    padding-bottom: 90px;
+}
+
+.ourteam-top {
+    text-align: left;
+}
+
+.ourteam-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.ourteam-meet-text,
+.ourteam-watch-all {
+    font-size: 20px;
+}
+
+.ourteam-watch-all {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.ourteam-people {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding-top: 30px;
+}
+
+.ourteam-member-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ourteam-member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 300px;
+    text-align: center;
+}
+
+.name {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.position {
+    color: #8f83ff;
+    font-size: 18px;
+}
+
+.description {
+    color: rgb(157, 156, 156);
+}
+
+.email a {
+    font-weight: bold;
+    text-decoration: none;
+    color: lightgrey;
+}
+
+.email a:hover {
+    text-decoration: underline;
+}
+
+@media (min-width: 500px) and (max-width: 1000px) {
+    .ourteam-people {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto auto;
+        gap: 20px;
+    }
+
+    .ourteam-member-wrapper {
+        width: 100%;
+    }
+
+    .ourteam-member {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        text-align: left;
+    }
+
+    .ourteam-member img {
+        width: 300px; /* Зменшуємо розмір картинки */
+        height: auto;
+        margin-right: 20px;
+    }
+
+    .ourteam-name {
+        margin-left: 20px;
+    }
+}
+
+@media (max-width: 500px) {
+    
+    .container-our {
+        padding: 20px;
+    }
+
+    .ourteam-info {
+        align-items: flex-start;
+    }
+
+    .ourteam-people {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .ourteam-member-wrapper {
+        width: 100%;
+    }
+
+    .ourteam-member {
+        max-width: 100%;
+    }
+
+    .ourteam-member img {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (min-width: 1000px) {
+
+    .ourteam-top-text {
+        font-size: 68px;
+    }
+
+    .ourteam-meet-text {
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .ourteam-people {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+
+    .ourteam-member-wrapper {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .ourteam-member {
+        display: flex;
+        flex-direction: row; /* Елементи в один ряд */
+        align-items: stretch; /* Розтягуємо по висоті */
+        text-align: left;
+        gap: 20px; /* Відстань між картинкою і текстом */
+        width: 100%;
+    }
+
+    .container-our .ourteam-people .ourteam-member-wrapper .ourteam-member img {
+        max-width: 220px; /* Збільшуємо розмір картинки */
+        height: auto;
+    }
+
+    .ourteam-name {
+        display: flex;
+        flex-direction: column; /* Розподіляємо текст вертикально */
+        justify-content: space-between; /* Розподіляємо по висоті */
+        height: 100%; /* Заповнюємо всю висоту */
+        gap: 10px; /* Відстань між елементами */
+        width: 100%; /* Задаємо ширину на всю доступну ширину батьківського контейнера */
+        
+    }
+
+    .name, .position, .description, .email {
+        margin: 0; /* Убираємо зайві відступи */
+        font-family: var(--font-family);
+        font-weight: bold;
+    }
+
+    .name {
+        font-size: 36px;
+        margin-top: 35px;
+    }
+
+    .position {
+        font-size: 20px;
+    }
+
+    .description {
+        font-size: 20px;
+    }
+
+    .email {
+        font-size: 20px;
+    }
+
+}
+
+
+
+@media (max-width: 1000px) {
+    .ourteam-top-text {
+        font-size: 45px;
+    }
+    .ourteam-member img {
+        width: 90%; /* Зменшуємо розмір картинок для екрану менше 1000px */
+    }
+
+    .ourteam-name {
+        font-size: 20px; /* Зменшуємо розмір шрифта тексту */
+    }
+
+    .ourteam-member {
+        flex-direction: column; /* Переміщаємо текст під картинку */
+    }
+}
+
+@media (min-width: 500px) {
+    
+    .ourteam-info {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        align-items: center;
+        justify-content: space-between; /* Текст зліва і справа */
+    }
+
+    .ourteam-meet-text {
+        margin-right: auto; /* Переміщає "Meet our core team!" вліво */
+    }
+
+    .ourteam-watch-all {
+        font-size: 20px;
+    }
+}
+
+.our-background-partners {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    overflow: hidden;
+    max-width: 100%; /* Встановлюємо максимальну ширину, щоб слайдер займав лише доступний простір */
+    padding: 20px 0; /* Відступи для гарного вигляду */
+}
+
+.slider-container {
+    margin: 0 auto;
+    width: 100%;  /* Контейнер займає весь доступний простір */
+    max-width: 1200px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: flex-start;  /* Якщо хочете вирівнювати вліво */
+    padding: 0;
+}
+
+
+.our-background-partners-logos {
+    display: flex;
+    gap: 30px;
+    transition: transform 0.5s ease-in-out;
+    padding: 0;
+    transform: translateX(0px);
+      /* Щоб приховати елементи, які виходять за межі */
+}
+
+
+
+.brand-card {
+    width: 250px; /* Можна задати більшу або меншу ширину */
+    flex-shrink: 0;
+    height: auto;
+    background-color: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+
+.brand-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Тінь при наведенні */
+}
+
+.brand-card img {
+    max-width: 90%;
+    max-height: 80%;
+    object-fit: contain;
+    margin: 0 auto;
+    display: block;
+}
+
+.slider-arrow {
+    background-color: transparent;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.3s;
+    color: #8f83ff; /* Змінив колір стрілок для кращого вигляду */
+}
+
+.slider-arrow:hover {
+    transform: scale(1.2);
+    color: #5c54d1; /* Інший колір при наведенні для відгуку */
+}
+
+.our-clients-text {
+    font-size: 40px;
+    max-width: 1200px;
+    text-align: center;
+    margin: 0 auto;
+    padding-bottom: 20px; /* Відступ знизу для гармонійного вигляду */
+}
+
+/* Адаптивність для мобільних пристроїв */
+@media (max-width: 768px) {
+    .our-background-partners-logos {
+        gap: 15px; /* Менші відступи між картками на мобільних */
+    }
+
+    .brand-card {
+        max-width: 250px; /* Зменшуємо розмір карток на мобільних */
+    }
+}
+
+@media (max-width: 500px) {
+    .slider-arrow {
+        font-size: 25px; /* Зменшуємо розмір стрілок на мобільних */
+    }
+
+    .our-clients-text {
+        font-size: 30px; /* Зменшуємо розмір тексту на мобільних */
+    }
+}
