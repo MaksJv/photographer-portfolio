@@ -1,0 +1,72 @@
+.animated-carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.animated-carousel__inner {
+    display: flex;
+    transition: transform 0.7s ease-in-out;
+}
+
+.animated-carousel .photo-card {
+    flex: 0 0 100%;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+    .animated-carousel .photo-card {
+        flex: 0 0 50%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .animated-carousel .photo-card {
+        flex: 0 0 33.33%;
+    }
+}
+
+.animated-carousel .carousel__button {
+    position: absolute;
+    font-size: 20px;
+    color: var(--color-text); 
+    background: transparent; 
+    border: none;
+    cursor: pointer;
+    z-index: 1; 
+    transition: color 0.3s, font-size 0.5s ease, transform 0,3s;
+}
+
+.animated-carousel .carousel__button:hover {
+    color: var(--color-link); 
+    font-size: 24px; 
+}
+
+.animated-carousel .carousel__button--prev {
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.animated-carousel .carousel__button--next {
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.button {
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: var(--background-color);
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-color);
+    border: 1px solid var(--bordecr-color);
+}
+
+.button:hover {
+    cursor: pointer;
+    font-weight: bold;
+}
