@@ -1,0 +1,15 @@
+.book-subtitle {
+    font-size: 30px; /* Зміни розмір тексту, наприклад, 24px, 28px тощо */
+    font-family: 'Roboto', sans-serif; /* Або інший шрифт, якщо хочеш */
+    font-weight: bold; /* Опціонально: зміни товщину шрифту */
+    line-height: 1.5; /* Опціонально: покращує читабельність */
+    text-align: center;
+}
+
+.container-book {
+    text-align: center;
+    font-size: 30px;
+    font-family: 'Roboto', sans-serif; /* Або інший шрифт, якщо хочеш */
+    font-weight: bold; /* Опціонально: зміни товщину шрифту */
+    line-height: 1.5; /* Опціонально: покращує читабельність */
+}

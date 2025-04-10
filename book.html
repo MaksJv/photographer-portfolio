@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Photo Session</title>
+  <link rel="shortcut icon" href="img/logo.webp" type="image/x-icon">
+  <link rel="stylesheet" href="css/index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/photo-sessions.css">
+  <!-- ✅ Flatpickr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+
+<body>
+  <!-- Хедер як на головній -->
+  <header class="header">
+    <div class="header__background">
+      <div class="header__container container">
+        <nav data-include="header-nav.partial.html"></nav>
+        <!-- Можна або залишити цю секцію, або замінити іншим текстом -->
+        <section class="book-header">
+          <h1 class="book-title">Book a Photo Session</h1>
+          <p class="book-subtitle">Let’s create something magical together</p>
+        </section>
+      </div>
+    </div>
+  </header>
+
+  <!-- Основна частина -->
+  <main class="container">
+    
+    <section class="book-form-section">
+      <p class="container-book">Book a Photo Session</p>
+      <form class="book-form" action="http://localhost:8080/api/bookings" method="POST">
+        <label>
+          Your Name
+          <input type="text" name="name" placeholder="John Doe" required>
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" placeholder="you@example.com" required>
+        </label>
+        <label>
+          Preferred Date
+          <input type="date" id="datePicker" name="date" placeholder="Select date" required>
+        </label>
+        <label>
+          Select photosession type
+          <select name="photosession_type" class="custom-select" required>
+            <option value="" disabled selected>Select a type</option>
+            <option value="professional">Professional</option>
+            <option value="school">School</option>
+            <option value="wedding">Wedding</option>
+            <option value="family">Family</option>
+            <option value="love_story">Love Story</option>
+            <option value="something_else">Something else...</option>
+          </select>
+        </label>        
+        <label>
+          Message
+          <textarea name="message" placeholder="Tell me more..."></textarea>
+        </label>
+        <input type="hidden" name="_captcha" value="false">
+        <button type="submit" class="book-submit-button">Submit</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Футер -->
+  <footer data-include="footer.partial.html"></footer>
+
+  <!-- Підключення html include та JS -->
+  <script src="https://unpkg.com/html-data-include@3.3.3/html-data-include.js"></script>
+  <script type="module" src="./js/index.js"></script>
+
+  <!-- ✅ Flatpickr JS -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <!-- ✅ Ініціалізація календаря -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      flatpickr("#datePicker", {
+        dateFormat: "Y-m-d",
+        minDate: "today",
+        locale: "uk" // українська мова (опціонально, якщо потрібна)
+      });
+    });
+  </script>
+
+</body>
+
+</html>

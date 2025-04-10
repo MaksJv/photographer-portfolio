@@ -8,4 +8,5 @@ document.addEventListener("partialsLoaded", () => {
   import('./our-slider.js');
   import("./logo-modal.js");
   import("./main.section.collaboration.button.js");
+  import("./form-submit.js");
 });
