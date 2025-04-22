@@ -2,26 +2,23 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Book a Photo Session</title>
-  <link rel="shortcut icon" href="img/logo.webp" type="image/x-icon">
-  <link rel="stylesheet" href="css/index.css">
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/photo-sessions.css">
+  <link rel="shortcut icon" href="img/logo.webp" type="image/x-icon" />
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="css/photo-sessions.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
   <!-- ✅ Flatpickr CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
 </head>
 
 <body>
-  <!-- Хедер як на головній -->
   <header class="header">
     <div class="header__background">
       <div class="header__container container">
         <nav data-include="header-nav.partial.html"></nav>
-        <!-- Можна або залишити цю секцію, або замінити іншим текстом -->
         <section class="book-header">
           <h1 class="book-title">Book a Photo Session</h1>
           <p class="book-subtitle">Let’s create something magical together</p>
@@ -30,24 +27,36 @@
     </div>
   </header>
 
-  <!-- Основна частина -->
   <main class="container">
-    
     <section class="book-form-section">
       <p class="container-book">Book a Photo Session</p>
       <form class="book-form" action="http://localhost:8080/api/bookings" method="POST">
         <label>
           Your Name
-          <input type="text" name="name" placeholder="John Doe" required>
+          <input type="text" name="name" placeholder="John Doe" required />
         </label>
         <label>
           Email
-          <input type="email" name="email" placeholder="you@example.com" required>
+          <input type="email" name="email" placeholder="you@example.com" required />
         </label>
         <label>
           Preferred Date
-          <input type="date" id="datePicker" name="date" placeholder="Select date" required>
+          <input type="text" id="datePicker" name="date" placeholder="Select date" required />
         </label>
+        <label>
+          Preferred Time
+          <div class="time-options">
+            <label class="time-option" id="time-9-container">
+              <input type="radio" name="time" value="09:00" id="time-9" required>
+              <span>09:00</span>
+            </label>
+            <label class="time-option" id="time-14-container">
+              <input type="radio" name="time" value="14:00" id="time-14" required>
+              <span>14:00</span>
+            </label>
+          </div>
+        </label>        
+        
         <label>
           Select photosession type
           <select name="photosession_type" class="custom-select" required>
@@ -59,21 +68,21 @@
             <option value="love_story">Love Story</option>
             <option value="something_else">Something else...</option>
           </select>
-        </label>        
+        </label>
         <label>
           Message
           <textarea name="message" placeholder="Tell me more..."></textarea>
         </label>
-        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_captcha" value="false" />
         <button type="submit" class="book-submit-button">Submit</button>
       </form>
     </section>
   </main>
+  <!-- Toast Notification -->
+  <div id="toast" class="toast"></div>
 
-  <!-- Футер -->
   <footer data-include="footer.partial.html"></footer>
 
-  <!-- Підключення html include та JS -->
   <script src="https://unpkg.com/html-data-include@3.3.3/html-data-include.js"></script>
   <script type="module" src="./js/index.js"></script>
 
@@ -82,15 +91,40 @@
 
   <!-- ✅ Ініціалізація календаря -->
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener("DOMContentLoaded", function () {
       flatpickr("#datePicker", {
         dateFormat: "Y-m-d",
         minDate: "today",
-        locale: "uk" // українська мова (опціонально, якщо потрібна)
+        locale: "uk",
       });
+
+      // Функція для перевірки доступності часу на обрану дату
+      async function checkAvailability() {
+        const selectedDate = document.querySelector('input[name="date"]').value;
+
+        if (!selectedDate) return;
+
+        const response = await fetch(`http://localhost:8080/api/bookings/check-availability?preferredDate=${selectedDate}`);
+        const availableTimes = await response.json();
+
+        // Перевірка, які часи доступні
+        if (!availableTimes.includes("09:00")) {
+          document.getElementById("time-9-container").style.display = "none";  // Приховати час 09:00
+        } else {
+          document.getElementById("time-9-container").style.display = "block"; // Показати час 09:00
+        }
+
+        if (!availableTimes.includes("14:00")) {
+          document.getElementById("time-14-container").style.display = "none";  // Приховати час 14:00
+        } else {
+          document.getElementById("time-14-container").style.display = "block"; // Показати час 14:00
+        }
+      }
+
+      // Перевірка доступності при зміні дати
+      document.querySelector('input[name="date"]').addEventListener('change', checkAvailability);
     });
   </script>
-
 </body>
 
 </html>

@@ -13,3 +13,42 @@
     font-weight: bold; /* Опціонально: зміни товщину шрифту */
     line-height: 1.5; /* Опціонально: покращує читабельність */
 }
+
+.time-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .time-option {
+    position: relative;
+  }
+  
+  .time-option input[type="radio"] {
+    display: none;
+  }
+  
+  .time-option span {
+    display: inline-block;
+    padding: 12px 20px;
+    border-radius: 12px;
+    background-color: #f3f3f3;
+    cursor: pointer;
+    font-weight: 500;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+    user-select: none;
+  }
+  
+  .time-option span:hover {
+    background-color: #00ffff;
+  }
+  
+  .time-option input[type="radio"]:checked + span {
+    background-color: #00ffff;
+    color: #000;
+  }
+  
+  
+  
