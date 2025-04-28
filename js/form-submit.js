@@ -17,22 +17,21 @@ function showToast(message, isSuccess = true) {
       const response = await fetch(`http://localhost:8080/api/bookings/check-availability?preferredDate=${selectedDate}`);
       if (response.ok) {
         const availableTimes = await response.json();
-        
-        // Спочатку активуємо всі варіанти
-        document.getElementById("time-9").disabled = false;
-        document.getElementById("time-14").disabled = false;
-        
-        // Блокуємо ті, які зайняті
+  
+        // Спочатку активуємо і повертаємо нормальний вигляд для обох
+        resetTimeOption("time-9");
+        resetTimeOption("time-14");
+  
+        // Блокуємо і візуально "топимо" ті варіанти, які зайняті
         if (!availableTimes.includes("09:00")) {
-          document.getElementById("time-9").disabled = true;
+          disableTimeOption("time-9");
         }
         if (!availableTimes.includes("14:00")) {
-          document.getElementById("time-14").disabled = true;
+          disableTimeOption("time-14");
         }
   
-        // Якщо немає доступних годин
         if (availableTimes.length === 0) {
-          showToast("No available times on this day. Please choose another day.", false);
+          showToast("Немає доступних годин на цю дату. Будь ласка, оберіть інший день.", false);
         }
       } else {
         const errorMessage = await response.text();
@@ -40,9 +39,21 @@ function showToast(message, isSuccess = true) {
       }
     } catch (err) {
       console.error("Error checking availability", err);
-      showToast("Something went wrong. Please try again.", false);
+      showToast("Щось пішло не так. Спробуйте ще раз.", false);
     }
   });
+  
+  function disableTimeOption(timeId) {
+    document.getElementById(timeId).disabled = true;
+    document.getElementById(`${timeId}-container`).classList.add("disabled-time-option");
+  }
+  
+  function resetTimeOption(timeId) {
+    document.getElementById(timeId).disabled = false;
+    document.getElementById(`${timeId}-container`).classList.remove("disabled-time-option");
+  }
+  
+
   
   // Обробка форми
   document.querySelector(".book-form").addEventListener("submit", async function (e) {
@@ -91,4 +102,53 @@ function showToast(message, isSuccess = true) {
       showToast("Something went wrong. Please try again.", false);
     }
   });
+
+let availableDates = [];  // масив доступних дат
+
+// Функція для отримання доступних дат
+async function fetchAvailableDates() {
+  try {
+    const response = await fetch("http://localhost:8080/api/bookings/available-dates");
+    availableDates = await response.json(); // Наприклад: ["2025-04-25", "2025-04-28"]
+    console.log("Available dates from server:", availableDates);
+  } catch (err) {
+    console.error("Error fetching available dates:", err);
+  }
+}
+
+// Ініціалізація Flatpickr
+flatpickr("#datePicker", {
+  async onOpen() {
+    await fetchAvailableDates(); // Оновлюємо доступні дати при кожному відкритті календаря
+    this.redraw(); // Перемальовуємо календар після оновлення доступних дат
+  },
+  onDayCreate: function(dObj, dStr, fp, dayElem) {
+    const year = dayElem.dateObj.getFullYear();
+    const month = String(dayElem.dateObj.getMonth() + 1).padStart(2, '0');
+    const day = String(dayElem.dateObj.getDate()).padStart(2, '0');
+    const date = `${year}-${month}-${day}`;
+  
+    console.log("Checking date:", date);
+  
+    if (availableDates.includes(date)) {
+      console.log(`${date} is available.`);
+      dayElem.classList.add("available-day");
+      dayElem.classList.remove("flatpickr-disabled");
+    } else {
+      console.log(`${date} is unavailable.`);
+      dayElem.classList.add("unavailable-day");
+      dayElem.classList.add("flatpickr-disabled");
+    }
+  },
+  // Додатково: встановлюємо мінімальну та максимальну дату, якщо необхідно
+  minDate: "today", // не можна вибрати минулі дати
+});
+
+
+
+
+
+
+
+
   
