@@ -11,7 +11,8 @@
   <link rel="stylesheet" href="css/photo-sessions.css" />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
   <!-- ✅ Flatpickr CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
 </head>
 
 <body>
@@ -31,64 +32,74 @@
     <section class="book-form-section">
       <p class="container-book">Book a Photo Session</p>
       <form class="book-form" action="http://localhost:8080/api/bookings" method="POST">
+        
+        <!-- Поле для ім'я -->
         <label>
           Your Name
           <input type="text" name="name" placeholder="John Doe" required />
         </label>
+  
+        <!-- Поле для email -->
         <label>
           Email
           <input type="email" name="email" placeholder="you@example.com" required />
         </label>
+  
+        <!-- Поле для вибору дати -->
         <label>
           Preferred Date
-          <input type="text" id="datePicker" name="date" placeholder="Select date" required />
+          <input id="date" name="preferred_date" type="text" placeholder="Choose date" required />
         </label>
+  
+        <!-- Поле для вибору часу -->
         <label>
           Preferred Time
           <div class="time-options">
             <label class="time-option" id="time-9-container">
-              <input type="radio" name="time" value="09:00" id="time-9" required>
+              <input type="radio" name="preferred_time" value="09:00" id="time-9" required>
               <span>09:00</span>
             </label>
             <label class="time-option" id="time-14-container">
-              <input type="radio" name="time" value="14:00" id="time-14" required>
+              <input type="radio" name="preferred_time" value="14:00" id="time-14" required>
               <span>14:00</span>
             </label>
           </div>
         </label>
         
+        
+        <!-- Поле для вибору типу фотосесії -->
         <label>
           Select photosession type
           <select name="photosession_type" id="photosessionType" class="custom-select" required>
             <option value="" disabled selected>Select a type</option>
-            <!-- Options will be populated dynamically -->
+            <!-- Опції будуть додані динамічно -->
           </select>
         </label>
-        
-        <label>
-          Select Status
-          <select name="status" id="status" class="custom-select" required>
-            <option value="" disabled selected>Select status</option>
-            <!-- Options will be populated dynamically -->
-          </select>
-        </label>
-      
+  
+        <!-- Поле для повідомлення -->
         <label>
           Message
           <textarea name="message" placeholder="Tell me more..."></textarea>
         </label>
+  
+        <!-- Сховане поле для Captcha -->
         <input type="hidden" name="_captcha" value="false" />
+  
+        <!-- Кнопка відправлення -->
         <button type="submit" class="book-submit-button">Submit</button>
       </form>      
     </section>
   </main>
+  
+  
+  
   <!-- Toast Notification -->
   <div id="toast" class="toast"></div>
 
   <footer data-include="footer.partial.html"></footer>
 
   <script src="https://unpkg.com/html-data-include@3.3.3/html-data-include.js"></script>
-  <script type="module" src="./js/index.js"></script>
+  
 
   <!-- ✅ Flatpickr JS -->
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -123,6 +134,8 @@
 // });
 
   </script>
+  <script type="module" src="./js/form-submit.js"></script>
+  
 </body>
 
 </html>
