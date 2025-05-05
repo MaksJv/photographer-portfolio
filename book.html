@@ -55,27 +55,31 @@
               <span>14:00</span>
             </label>
           </div>
-        </label>        
+        </label>
         
         <label>
           Select photosession type
-          <select name="photosession_type" class="custom-select" required>
+          <select name="photosession_type" id="photosessionType" class="custom-select" required>
             <option value="" disabled selected>Select a type</option>
-            <option value="professional">Professional</option>
-            <option value="school">School</option>
-            <option value="wedding">Wedding</option>
-            <option value="family">Family</option>
-            <option value="love_story">Love Story</option>
-            <option value="something_else">Something else...</option>
+            <!-- Options will be populated dynamically -->
           </select>
         </label>
+        
+        <label>
+          Select Status
+          <select name="status" id="status" class="custom-select" required>
+            <option value="" disabled selected>Select status</option>
+            <!-- Options will be populated dynamically -->
+          </select>
+        </label>
+      
         <label>
           Message
           <textarea name="message" placeholder="Tell me more..."></textarea>
         </label>
         <input type="hidden" name="_captcha" value="false" />
         <button type="submit" class="book-submit-button">Submit</button>
-      </form>
+      </form>      
     </section>
   </main>
   <!-- Toast Notification -->
@@ -91,32 +95,32 @@
 
   <!-- ✅ Ініціалізація календаря -->
   <script>
-    document.addEventListener("DOMContentLoaded", async function () {
-  await fetchAvailableDates(); // Перший раз отримуємо дати
+//     document.addEventListener("DOMContentLoaded", async function () {
+//   await fetchAvailableDates(); // Перший раз отримуємо дати
 
-  flatpickr("#datePicker", {
-    dateFormat: "Y-m-d",
-    minDate: "today",
-    locale: "uk",
-    onOpen: async function() {
-      await fetchAvailableDates();
-      this.redraw();
-    },
-    onDayCreate: function(dObj, dStr, fp, dayElem) {
-      const date = dayElem.dateObj.toISOString().split("T")[0];
-      if (availableDates.includes(date)) {
-        dayElem.classList.add("available-day");
-        dayElem.classList.remove("flatpickr-disabled");
-      } else {
-        dayElem.classList.add("unavailable-day");
-        dayElem.classList.add("flatpickr-disabled");
-      }
-    }
-  });
+//   flatpickr("#datePicker", {
+//     dateFormat: "Y-m-d",
+//     minDate: "today",
+//     locale: "uk",
+//     onOpen: async function() {
+//       await fetchAvailableDates();
+//       this.redraw();
+//     },
+//     onDayCreate: function(dObj, dStr, fp, dayElem) {
+//       const date = dayElem.dateObj.toISOString().split("T")[0];
+//       if (availableDates.includes(date)) {
+//         dayElem.classList.add("available-day");
+//         dayElem.classList.remove("flatpickr-disabled");
+//       } else {
+//         dayElem.classList.add("unavailable-day");
+//         dayElem.classList.add("flatpickr-disabled");
+//       }
+//     }
+//   });
 
-  // Перевірка доступності часу
-  document.querySelector('input[name="date"]').addEventListener('change', checkAvailability);
-});
+//   // Перевірка доступності часу
+//   document.querySelector('input[name="date"]').addEventListener('change', checkAvailability);
+// });
 
   </script>
 </body>
