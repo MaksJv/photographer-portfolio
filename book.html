@@ -75,6 +75,8 @@
 
   <script src="https://unpkg.com/html-data-include@3.3.3/html-data-include.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <!-- Polish locale -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pl.js"></script>
 
   <script>
     // ✅ Глобальні змінні
@@ -127,7 +129,7 @@
       flatpickr("#datePicker", {
         dateFormat: "Y-m-d",
         minDate: "today",
-        locale: "uk",
+        locale: "pl",
         onOpen: async function () {
           await fetchAvailableDates();
           this.redraw();
@@ -196,6 +198,34 @@
     }
   
       document.querySelector('input[name="date"]').addEventListener('change', checkAvailability);
+
+      // Ініціалізація Flatpickr
+    flatpickr("#datePicker", {
+      async onOpen() {
+        await fetchAvailableDates(); // Оновлюємо доступні дати при кожному відкритті календаря
+        this.redraw(); // Перемальовуємо календар після оновлення доступних дат
+      },
+      onDayCreate: function(dObj, dStr, fp, dayElem) {
+        const year = dayElem.dateObj.getFullYear();
+        const month = String(dayElem.dateObj.getMonth() + 1).padStart(2, '0');
+        const day = String(dayElem.dateObj.getDate()).padStart(2, '0');
+        const date = `${year}-${month}-${day}`;
+      
+        console.log("Checking date:", date);
+      
+        if (availableDates.includes(date)) {
+          console.log(`${date} is available.`);
+          dayElem.classList.add("available-day");
+          dayElem.classList.remove("flatpickr-disabled");
+        } else {
+          console.log(`${date} is unavailable.`);
+          dayElem.classList.add("unavailable-day");
+          dayElem.classList.add("flatpickr-disabled");
+        }
+      },
+      // Додатково: встановлюємо мінімальну та максимальну дату, якщо необхідно
+      minDate: "today", // не можна вибрати минулі дати
+    });
     });
   </script>
 </body>
