@@ -198,6 +198,49 @@
     }
   
       document.querySelector('input[name="date"]').addEventListener('change', checkAvailability);
+      // Перевірка доступності часу при виборі дати
+  document.querySelector('input[name="date"]').addEventListener("change", async function () {
+    const selectedDate = this.value;
+  
+    try {
+      const response = await fetch(`http://localhost:8080/api/bookings/check-availability?preferredDate=${selectedDate}`);
+      if (response.ok) {
+        const availableTimes = await response.json();
+  
+        // Спочатку активуємо і повертаємо нормальний вигляд для обох
+        resetTimeOption("time-9");
+        resetTimeOption("time-14");
+  
+        // Блокуємо і візуально "топимо" ті варіанти, які зайняті
+        if (!availableTimes.includes("09:00")) {
+          disableTimeOption("time-9");
+        }
+        if (!availableTimes.includes("14:00")) {
+          disableTimeOption("time-14");
+        }
+  
+        if (availableTimes.length === 0) {
+          showToast("Немає доступних годин на цю дату. Будь ласка, оберіть інший день.", false);
+        }
+      } else {
+        const errorMessage = await response.text();
+        showToast(errorMessage, false);
+      }
+    } catch (err) {
+      console.error("Error checking availability", err);
+      showToast("Щось пішло не так. Спробуйте ще раз.", false);
+    }
+  });
+  
+  function disableTimeOption(timeId) {
+    document.getElementById(timeId).disabled = true;
+    document.getElementById(`${timeId}-container).classList.add("disabled-time-option"`);
+  }
+  
+  function resetTimeOption(timeId) {
+    document.getElementById(timeId).disabled = false;
+    document.getElementById(`${timeId}-container).classList.remove("disabled-time-option"`);
+  }
 
       // Ініціалізація Flatpickr
     flatpickr("#datePicker", {
@@ -225,8 +268,10 @@
       },
       // Додатково: встановлюємо мінімальну та максимальну дату, якщо необхідно
       minDate: "today", // не можна вибрати минулі дати
+
+      
     });
     });
-  </script>
+</script>
 </body>
 </html>
