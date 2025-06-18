@@ -163,44 +163,44 @@
       const form = document.querySelector(".book-form");
 
     form.addEventListener("submit", async (event) => {
-      event.preventDefault(); // зупиняємо стандартне надсилання
+  event.preventDefault(); // зупиняємо стандартне надсилання
 
-      const formData = new FormData(form);
+  const formData = new FormData(form);
 
-      const payload = {
-        name: formData.get("name"),
-        email: formData.get("email"),
-        date: formData.get("date"),
-        time: formData.get("time"),
-        photosessionTypeId: parseInt(formData.get("photosession_type")),
-        message: formData.get("message")
-      };
-      
+  const payload = {
+    name: formData.get("name"),
+    email: formData.get("email"),
+    date: formData.get("date"),
+    time: formData.get("time"),
+    photosessionTypeId: parseInt(formData.get("photosession_type")),
+    message: formData.get("message")
+  };
 
-      try {
-        console.log("Form data being sent:", formData);
-        console.log("Payload being sent:", payload);
-
-
-        const response = await fetch("http://localhost:8080/api/bookings", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(payload)
-        });
-
-        if (response.ok) {
-          showToast("Your booking was submitted successfully! ✅");
-          form.reset(); // очистити форму
-        } else {
-          showToast("Something went wrong. Please try again later. ❌");
-        }
-      } catch (error) {
-        console.error("Submit error:", error);
-        showToast("Failed to connect to the server. ❌");
-      }
+  try {
+    const response = await fetch("http://localhost:8080/api/bookings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
     });
+
+    if (response.ok) {
+      showToast("Your booking was submitted successfully! ✅");
+      form.reset(); // очистити форму
+
+      // 🔁 Скидаємо стилі після сабміту
+      resetTimeOption("time-9");
+      resetTimeOption("time-14");
+    } else {
+      showToast("Something went wrong. Please try again later. ❌");
+    }
+  } catch (error) {
+    console.error("Submit error:", error);
+    showToast("Failed to connect to the server. ❌");
+  }
+});
+
 
     function showToast(message) {
       const toast = document.getElementById("toast");
@@ -247,14 +247,23 @@
   });
   
   function disableTimeOption(timeId) {
-    document.getElementById(timeId).disabled = true;
-    document.getElementById(`${timeId}-container).classList.add("disabled-time-option"`);
+  const timeInput = document.getElementById(timeId);
+  const container = document.getElementById(`${timeId}-container`);
+  if (timeInput && container) {
+    timeInput.disabled = true;
+    container.classList.add("disabled-time-option");
   }
-  
-  function resetTimeOption(timeId) {
-    document.getElementById(timeId).disabled = false;
-    document.getElementById(`${timeId}-container).classList.remove("disabled-time-option"`);
+}
+
+function resetTimeOption(timeId) {
+  const timeInput = document.getElementById(timeId);
+  const container = document.getElementById(`${timeId}-container`);
+  if (timeInput && container) {
+    timeInput.disabled = false;
+    container.classList.remove("disabled-time-option");
   }
+}
+
 
       // Ініціалізація Flatpickr
     flatpickr("#datePicker", {
