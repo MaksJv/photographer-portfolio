@@ -5,12 +5,27 @@ let availableTimes = {};  // об'єкт для зберігання досту�
 async function fetchAvailableDates() {
   try {
     const response = await fetch("http://localhost:8080/api/bookings/available-dates");
-    availableDates = await response.json(); // Наприклад: ["2025-04-25", "2025-04-28"]
-    console.log("Available dates from server:", availableDates);
+    const allDates = await response.json(); // наприклад: ["2025-04-25", "2025-04-28"]
+    
+    const filteredDates = [];
+
+    for (const date of allDates) {
+      const checkResponse = await fetch(`http://localhost:8080/api/bookings/check-availability?preferredDate=${date}`);
+      if (checkResponse.ok) {
+        // Дата має хоч один доступний час
+        filteredDates.push(date);
+      } else {
+        console.log(`Date ${date} has no available times.`);
+      }
+    }
+
+    availableDates = filteredDates;
+    console.log("Filtered available dates:", availableDates);
   } catch (err) {
     console.error("Error fetching available dates:", err);
   }
 }
+
 
 // Функція для перевірки доступних годин для конкретної дати
 async function fetchAvailableTimes(selectedDate) {
@@ -32,54 +47,64 @@ async function fetchAvailableTimes(selectedDate) {
 // Ініціалізація Flatpickr
 flatpickr("#datePicker", {
   async onOpen() {
-    await fetchAvailableDates(); // Оновлюємо доступні дати при кожному відкритті календаря
-    this.redraw(); // Перемальовуємо календар після оновлення доступних дат
+    await fetchAvailableDates(); // Завантаження та фільтрація дат
+    this.redraw(); // Перемальовуємо календар після оновлення
   },
-  onDayCreate: function(dObj, dStr, fp, dayElem) {
-    const year = dayElem.dateObj.getFullYear();
-    const month = String(dayElem.dateObj.getMonth() + 1).padStart(2, '0');
-    const day = String(dayElem.dateObj.getDate()).padStart(2, '0');
-    const date = `${year}-${month}-${day}`;
 
-    console.log("Checking date:", date);
-
-    if (availableDates.includes(date)) {
-      console.log(`${date} is available.`);
-      dayElem.classList.add("available-day");
-      dayElem.classList.remove("flatpickr-disabled");
-    } else {
-      console.log(`${date} is unavailable.`);
-      dayElem.classList.add("unavailable-day");
-      dayElem.classList.add("flatpickr-disabled");
+  // Блокуємо всі дні, яких немає в availableDates
+  disable: [
+    function(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const formatted = `${year}-${month}-${day}`;
+      return !availableDates.includes(formatted); // якщо дати немає — блокуємо
     }
-  },
-  minDate: "today", // не можна вибрати минулі дати
+  ],
+
+  minDate: "today", // не дозволяємо вибирати минулі дні
 });
+
 
 // Перевірка доступності часу при виборі дати
 document.querySelector('input[name="date"]').addEventListener("change", async function () {
   const selectedDate = this.value;
-  
-  // Перевірка доступності часу для вибраної дати
+
+  // Визначаємо доступні слоти по часу
+  const remainingSlots = getRemainingTimeSlots(selectedDate);
+
+  // Якщо всі слоти вже минули
+  if (remainingSlots.length === 0) {
+    disableTimeOption("time-9");
+    disableTimeOption("time-14");
+    showToast("Цей день вже недоступний для бронювання.", false);
+    return;
+  }
+
+  // Завантажуємо наявність з бекенду
   await fetchAvailableTimes(selectedDate);
 
-  // Спочатку активуємо і повертаємо нормальний вигляд для обох
+  // Скидаємо стилі
   resetTimeOption("time-9");
   resetTimeOption("time-14");
 
-  // Блокуємо і візуально "топимо" ті варіанти, які зайняті
-  if (!availableTimes[selectedDate]?.includes("09:00")) {
+  // Перевіряємо кожен слот
+  if (!availableTimes[selectedDate]?.includes("09:00") || !remainingSlots.includes("09:00")) {
     disableTimeOption("time-9");
   }
-  if (!availableTimes[selectedDate]?.includes("14:00")) {
+  if (!availableTimes[selectedDate]?.includes("14:00") || !remainingSlots.includes("14:00")) {
     disableTimeOption("time-14");
   }
 
-  // Якщо немає доступних годин на вибрану дату
-  if (!availableTimes[selectedDate] || availableTimes[selectedDate].length === 0) {
+  // Якщо всі слоти зайняті або пройшли
+  if (
+    (!availableTimes[selectedDate]?.includes("09:00") && !availableTimes[selectedDate]?.includes("14:00")) ||
+    remainingSlots.length === 0
+  ) {
     showToast("Немає доступних годин на цю дату. Будь ласка, оберіть інший день.", false);
   }
 });
+
 
 function disableTimeOption(timeId) {
   document.getElementById(timeId).disabled = true;
@@ -156,4 +181,27 @@ function showToast(message) {
   setTimeout(() => {
     toast.classList.remove("show");
   }, 3000);
+}
+
+
+function getRemainingTimeSlots(dateStr) {
+  const now = new Date();
+  const selectedDate = new Date(dateStr + "T00:00:00");
+
+  const remainingSlots = [];
+
+  // Якщо дата в майбутньому — обидва слоти доступні
+  if (selectedDate.toDateString() > now.toDateString()) {
+    return ["09:00", "14:00"];
+  }
+
+  // Якщо дата сьогодні
+  if (selectedDate.toDateString() === now.toDateString()) {
+    if (now.getHours() < 9) remainingSlots.push("09:00");
+    if (now.getHours() < 14) remainingSlots.push("14:00");
+    return remainingSlots;
+  }
+
+  // Інакше (дата в минулому) — жодного слоту
+  return [];
 }
