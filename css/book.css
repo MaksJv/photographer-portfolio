@@ -77,28 +77,39 @@
   }
   
   .toast {
-    visibility: hidden;
-    min-width: 250px;
-    margin-left: -125px;
-    background-color: #323232;
-    color: #fff;
-    text-align: center;
-    border-radius: 12px;
-    padding: 16px;
-    position: fixed;
-    z-index: 1000;
-    left: 50%;
-    bottom: 30px;
-    font-size: 16px;
-    opacity: 0;
-    transition: opacity 0.5s, bottom 0.5s;
-  }
-  
-  .toast.show {
-    visibility: visible;
-    opacity: 1;
-    bottom: 50px;
-  }
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1e1e1e; /* дефолтний фон */
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+  font-family: 'Manrope', sans-serif;
+}
+
+.toast.show {
+  display: block;
+  opacity: 1;
+}
+
+/* Успішний тост — зелений */
+.toast.success {
+  background-color: #28a745; /* Bootstrap-зелений */
+  color: #fff;
+}
+
+/* Помилка — червоний */
+.toast.error {
+  background-color: #dc3545; /* Bootstrap-червоний */
+  color: #fff;
+}
+
 
   .available-day {
     background-color: #d4edda !important; /* Світло-зелений фон для доступних дат */
@@ -124,6 +135,144 @@
     border-radius: 8px;
   }
   
+
+  /* === Dark Booking Form Styles === */
+body {
+  background-color: #0d0d0d;
+  color: #f0f0f0;
+  font-family: 'Manrope', sans-serif;
+}
+
+.book-form-section {
+  max-width: 600px;
+  margin: 3rem auto;
+  background-color: #1a1a1a;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+}
+
+.container-book {
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #ffffff;
+}
+
+.book-form label {
+  display: block;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  color: #cccccc;
+}
+
+.book-form input[type="text"],
+.book-form input[type="email"],
+.book-form input[type="date"],
+.book-form select,
+.book-form textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  margin-top: 0.5rem;
+  background-color: #2a2a2a;
+  color: #ffffff;
+  border: 1px solid #444;
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-form input:focus,
+.book-form textarea:focus,
+.book-form select:focus {
+  border-color: #d88aff;
+  outline: none;
+  box-shadow: 0 0 10px #d88aff55;
+}
+
+.book-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.time-options {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.time-option {
+  background-color: #2f2f2f;
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  border: 1px solid transparent;
+  color: #e0e0e0;
+  user-select: none;
+}
+
+.time-option:hover,
+.time-option input:checked + span {
+  background-color: #d88aff;
+  color: #0d0d0d;
+  font-weight: 600;
+}
+
+.time-option input {
+  display: none;
+}
+
+.disabled-time-option {
+  background-color: #555 !important;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.custom-select {
+  background-color: #2a2a2a;
+  color: #ffffff;
+}
+
+.book-submit-button {
+  background-color: #d88aff;
+  color: #0d0d0d;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.book-submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px #d88aff66;
+}
+
+/* Toast styling */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #222;
+  color: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  display: none;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
   
 
   

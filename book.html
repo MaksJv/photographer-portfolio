@@ -186,35 +186,61 @@
     });
 
     if (response.ok) {
-      showToast("Your booking was submitted successfully! ✅");
+      showToast("Your booking was submitted successfully! ✅", "success");
       form.reset(); // очистити форму
 
       // 🔁 Скидаємо стилі після сабміту
       resetTimeOption("time-9");
       resetTimeOption("time-14");
     } else {
-      showToast("Something went wrong. Please try again later. ❌");
+      showToast("Something went wrong. ❌", "error");
     }
   } catch (error) {
     console.error("Submit error:", error);
-    showToast("Failed to connect to the server. ❌");
+    showToast("Failed to connect to the server. ❌", "error");
   }
 });
 
 
-    function showToast(message) {
-      const toast = document.getElementById("toast");
-      toast.textContent = message;
-      toast.classList.add("show");
-      setTimeout(() => {
-        toast.classList.remove("show");
-      }, 4000);
-    }
+    function showToast(message, type = "success") {
+  const toast = document.getElementById("toast");
+  if (!toast) return;
+
+  // Очистити попередні класи
+  toast.className = "toast";
+  toast.textContent = message;
+
+  // Додати тип
+  if (type === "success") {
+    toast.classList.add("success");
+  } else if (type === "error") {
+    toast.classList.add("error");
+  }
+
+  // Показати тост
+  toast.classList.add("show");
+
+  // Сховати через 3 секунди
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => {
+      toast.classList.remove("success", "error");
+    }, 300); // Після завершення transition
+  }, 3000);
+}
+
+
+
   
       document.querySelector('input[name="date"]').addEventListener('change', checkAvailability);
       // Перевірка доступності часу при виборі дати
   document.querySelector('input[name="date"]').addEventListener("change", async function () {
     const selectedDate = this.value;
+
+    // ⬇️ Скидання вибору часу
+  document.querySelectorAll('input[name="time"]').forEach(input => {
+    input.checked = false;
+  });
   
     try {
       const response = await fetch(`http://localhost:8080/api/bookings/check-availability?preferredDate=${selectedDate}`);
