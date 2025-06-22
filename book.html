@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/photo-sessions.css" />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
   <header class="header">
@@ -17,7 +18,6 @@
       <div class="header__container container">
         <nav data-include="header-nav.partial.html"></nav>
         <section class="book-header">
-          <h1 class="book-title">Book a Photo Session</h1>
           <p class="book-subtitle">Let’s create something magical together</p>
         </section>
       </div>
@@ -56,7 +56,7 @@
         <label>
           Select photosession type
           <select name="photosession_type" id="photosession-type" class="custom-select" required>
-            <option value="" disabled selected>Loading types...</option>
+            <option value="" disabled selected>Select photosession type...</option>
           </select>
         </label>
         <label>
@@ -260,7 +260,7 @@
         }
   
         if (availableTimes.length === 0) {
-          showToast("Немає доступних годин на цю дату. Будь ласка, оберіть інший день.", false);
+          showToast("No hours available for this date. Please select another day.", false);
         }
       } else {
         const errorMessage = await response.text();
@@ -268,7 +268,7 @@
       }
     } catch (err) {
       console.error("Error checking availability", err);
-      showToast("Щось пішло не так. Спробуйте ще раз.", false);
+      showToast("Something went wrong. Please try again.", false);
     }
   });
   
@@ -325,5 +325,6 @@ function resetTimeOption(timeId) {
 });
     });
 </script>
+<script type="module" src="./js/index.js"></script>
 </body>
 </html>

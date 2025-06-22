@@ -30,3 +30,4 @@ document.querySelectorAll('.hello-there__tab-button').forEach(function (button) 
 });
 
 showPhotos('nature');
+
