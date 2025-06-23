@@ -27,7 +27,6 @@
 }
 
 img{
-  /* display: block;  закоментив Parashchuk Maksym трішки пізніше розкоментую, зараз наламує мені розташування картинок у модальному вікні*/
   max-width: 100%;
 }
 
@@ -49,7 +48,6 @@ a {
 }
 
 body {
-  /* background-color: var(--color-background); */
   background-image: url("../img/background.jpg");
   color: var(--color-title);
   font-family: var(--body-fonts);

@@ -69,31 +69,26 @@
     </section>
   </main>
 
-  <!-- Toast Notification -->
   <div id="toast" class="toast"></div>
   <footer data-include="footer.partial.html"></footer>
 
   <script src="https://unpkg.com/html-data-include@3.3.3/html-data-include.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <!-- Polish locale -->
   <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pl.js"></script>
 
   <script>
-    // ✅ Глобальні змінні
     let availableDates = [];
-  
-    // ✅ Завантаження доступних дат
+
     async function fetchAvailableDates() {
   try {
     const response = await fetch("http://localhost:8080/api/bookings/available-dates");
-    const allDates = await response.json(); // наприклад: ["2025-04-25", "2025-04-28"]
+    const allDates = await response.json();
     
     const filteredDates = [];
 
     for (const date of allDates) {
       const checkResponse = await fetch(`http://localhost:8080/api/bookings/check-availability?preferredDate=${date}`);
       if (checkResponse.ok) {
-        // Дата має хоч один доступний час
         filteredDates.push(date);
       } else {
         console.log(`Date ${date} has no available times.`);
@@ -108,7 +103,6 @@
 }
 
   
-    // ✅ Завантаження типів фотосесій
     async function fetchPhotosessionTypes() {
       try {
         const response = await fetch("http://localhost:8080/api/photosession-types");
@@ -128,14 +122,11 @@
       }
     }
   
-    // ✅ Перевірка доступності часу (залежно від обраної дати)
     function checkAvailability() {
       const selectedDate = document.querySelector('input[name="date"]').value;
-      // Тут можна реалізувати додаткову логіку, якщо потрібно
       console.log("Selected date:", selectedDate);
     }
   
-    // ✅ DOMContentLoaded
     document.addEventListener("DOMContentLoaded", async function () {
       await fetchAvailableDates();
       await fetchPhotosessionTypes();
@@ -163,7 +154,7 @@
       const form = document.querySelector(".book-form");
 
     form.addEventListener("submit", async (event) => {
-  event.preventDefault(); // зупиняємо стандартне надсилання
+  event.preventDefault();
 
   const formData = new FormData(form);
 
@@ -187,9 +178,8 @@
 
     if (response.ok) {
       showToast("Your booking was submitted successfully! ✅", "success");
-      form.reset(); // очистити форму
+      form.reset();
 
-      // 🔁 Скидаємо стилі після сабміту
       resetTimeOption("time-9");
       resetTimeOption("time-14");
     } else {
@@ -206,26 +196,22 @@
   const toast = document.getElementById("toast");
   if (!toast) return;
 
-  // Очистити попередні класи
   toast.className = "toast";
   toast.textContent = message;
 
-  // Додати тип
   if (type === "success") {
     toast.classList.add("success");
   } else if (type === "error") {
     toast.classList.add("error");
   }
 
-  // Показати тост
   toast.classList.add("show");
 
-  // Сховати через 3 секунди
   setTimeout(() => {
     toast.classList.remove("show");
     setTimeout(() => {
       toast.classList.remove("success", "error");
-    }, 300); // Після завершення transition
+    }, 300);
   }, 3000);
 }
 
@@ -233,11 +219,11 @@
 
   
       document.querySelector('input[name="date"]').addEventListener('change', checkAvailability);
-      // Перевірка доступності часу при виборі дати
+      
   document.querySelector('input[name="date"]').addEventListener("change", async function () {
     const selectedDate = this.value;
 
-    // ⬇️ Скидання вибору часу
+  
   document.querySelectorAll('input[name="time"]').forEach(input => {
     input.checked = false;
   });
@@ -247,11 +233,9 @@
       if (response.ok) {
         const availableTimes = await response.json();
   
-        // Спочатку активуємо і повертаємо нормальний вигляд для обох
         resetTimeOption("time-9");
         resetTimeOption("time-14");
   
-        // Блокуємо і візуально "топимо" ті варіанти, які зайняті
         if (!availableTimes.includes("09:00")) {
           disableTimeOption("time-9");
         }
@@ -291,11 +275,10 @@ function resetTimeOption(timeId) {
 }
 
 
-      // Ініціалізація Flatpickr
     flatpickr("#datePicker", {
   async onOpen() {
     await fetchAvailableDates();
-    this.redraw(); // перемальовує дні після завантаження
+    this.redraw();
   },
 
   disable: [
@@ -304,7 +287,7 @@ function resetTimeOption(timeId) {
       const month = String(date.getMonth() + 1).padStart(2, '0');
       const day = String(date.getDate()).padStart(2, '0');
       const formatted = `${year}-${month}-${day}`;
-      return !availableDates.includes(formatted); // недоступні дні блокуються
+      return !availableDates.includes(formatted);
     }
   ],
 
@@ -316,7 +299,6 @@ function resetTimeOption(timeId) {
     const formatted = `${year}-${month}-${day}`;
 
     if (availableDates.includes(formatted)) {
-      // Виділяємо доступні дні стилем
       dayElem.classList.add("available-day");
     }
   },

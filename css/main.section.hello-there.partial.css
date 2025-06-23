@@ -68,31 +68,30 @@
     display: none;
 }
 
-/* Заборонити горизонтальний скрол сторінки */
 body {
     overflow-x: hidden;
 }
 
-/* Робимо таби адаптивними */
+
 .hello-there__tabs--gallery {
-    flex-wrap: wrap; /* Переносимо кнопки, якщо не вміщаються */
-    overflow-x: auto; /* або прокрутка — можна змінити на wrap, якщо не хочеш горизонтального скролу */
+    flex-wrap: wrap; 
+    overflow-x: auto; 
     -webkit-overflow-scrolling: touch;
 }
 
-/* Обмежити мінімальну ширину підзаголовка */
+
 .hello-there__subtitle {
-    min-width: 0; /* раніше стояло 320px — це могло ламати верстку */
+    min-width: 0; 
     word-break: break-word;
 }
 
-/* Картки не мають виходити за межі */
+
 .hello-there__card-image {
     max-width: 100%;
     height: auto;
 }
 
-/* На маленьких екранах — одна колонка */
+
 @media (max-width: 767px) {
     .hello-there__category {
         display: grid;
@@ -101,7 +100,7 @@ body {
     }
 
     .hello-there__tab-button {
-        flex-shrink: 0; /* не дає кнопкам стискатись */
+        flex-shrink: 0; 
         white-space: nowrap;
     }
 }

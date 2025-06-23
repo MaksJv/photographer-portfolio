@@ -1,7 +1,7 @@
-let currentSlide = 0;  // Початковий слайд
+let currentSlide = 0; 
 
 document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(showSlide, 10);  // Затримка для коректної ініціалізації
+    setTimeout(showSlide, 10);  
 });
 
 function showSlide() {
@@ -9,12 +9,12 @@ function showSlide() {
     const sliderContainer = document.querySelector('.our-background-partners-logos');
     if (!slides.length || !sliderContainer) return;
 
-    const slideWidth = slides[0].offsetWidth; // Ширина одного слайда
-    const gap = 30;  // Відступ між картками
-    const offset = -currentSlide * (slideWidth + gap); // Розрахунок зсуву
+    const slideWidth = slides[0].offsetWidth; 
+    const gap = 30;  
+    const offset = -currentSlide * (slideWidth + gap); 
 
-    console.log(`Current Slide: ${currentSlide}, Offset: ${offset}px`);  // Для відлагодження
-    sliderContainer.style.transform = `translateX(${offset}px)`; // Застосування зсуву
+    console.log(`Current Slide: ${currentSlide}, Offset: ${offset}px`); 
+    sliderContainer.style.transform = `translateX(${offset}px)`;
 }
 
 function nextSlide() {

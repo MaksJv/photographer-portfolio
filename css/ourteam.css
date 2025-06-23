@@ -7,9 +7,9 @@
     margin: 0 auto;
     padding: clamp(10px, 5vw, 40px);
     background-image: url('../img/ourteampeople.png');
-    background-size: cover;           /* Залишаємо, щоб картинка покривала весь блок */
-    background-repeat: no-repeat;     /* Забороняємо повторення картинки */
-    background-position: right bottom;/* Встановлюємо позицію правий нижній кут */
+    background-size: cover;           
+    background-repeat: no-repeat;     
+    background-position: right bottom;
     padding-top: 110px;
     padding-bottom: 90px;
 }
@@ -105,7 +105,7 @@
     }
 
     .ourteam-member img {
-        width: 300px; /* Зменшуємо розмір картинки */
+        width: 300px; 
         height: auto;
         margin-right: 20px;
     }
@@ -170,30 +170,30 @@
 
     .ourteam-member {
         display: flex;
-        flex-direction: row; /* Елементи в один ряд */
-        align-items: stretch; /* Розтягуємо по висоті */
+        flex-direction: row; 
+        align-items: stretch; 
         text-align: left;
-        gap: 20px; /* Відстань між картинкою і текстом */
+        gap: 20px; 
         width: 100%;
     }
 
     .container-our .ourteam-people .ourteam-member-wrapper .ourteam-member img {
-        max-width: 220px; /* Збільшуємо розмір картинки */
+        max-width: 220px; 
         height: auto;
     }
 
     .ourteam-name {
         display: flex;
-        flex-direction: column; /* Розподіляємо текст вертикально */
-        justify-content: space-between; /* Розподіляємо по висоті */
-        height: 100%; /* Заповнюємо всю висоту */
-        gap: 10px; /* Відстань між елементами */
-        width: 100%; /* Задаємо ширину на всю доступну ширину батьківського контейнера */
+        flex-direction: column; 
+        justify-content: space-between; 
+        height: 100%; 
+        gap: 10px; 
+        width: 100%;
         
     }
 
     .name, .position, .description, .email {
-        margin: 0; /* Убираємо зайві відступи */
+        margin: 0; 
         font-family: var(--font-family);
         font-weight: bold;
     }
@@ -224,15 +224,15 @@
         font-size: 45px;
     }
     .ourteam-member img {
-        width: 90%; /* Зменшуємо розмір картинок для екрану менше 1000px */
+        width: 90%; 
     }
 
     .ourteam-name {
-        font-size: 20px; /* Зменшуємо розмір шрифта тексту */
+        font-size: 20px; 
     }
 
     .ourteam-member {
-        flex-direction: column; /* Переміщаємо текст під картинку */
+        flex-direction: column;
     }
 }
 
@@ -243,11 +243,11 @@
         flex-direction: row;
         gap: 20px;
         align-items: center;
-        justify-content: space-between; /* Текст зліва і справа */
+        justify-content: space-between; 
     }
 
     .ourteam-meet-text {
-        margin-right: auto; /* Переміщає "Meet our core team!" вліво */
+        margin-right: auto; 
     }
 
     .ourteam-watch-all {
@@ -260,18 +260,18 @@
     align-items: center;
     justify-content: center; 
     overflow: hidden;
-    max-width: 100%; /* Встановлюємо максимальну ширину, щоб слайдер займав лише доступний простір */
-    padding: 20px 0; /* Відступи для гарного вигляду */
+    max-width: 100%; 
+    padding: 20px 0; 
 }
 
 .slider-container {
     margin: 0 auto;
-    width: 100%;  /* Контейнер займає весь доступний простір */
+    width: 100%; 
     max-width: 1200px;
     overflow: hidden;
     position: relative;
     display: flex;
-    justify-content: flex-start;  /* Якщо хочете вирівнювати вліво */
+    justify-content: flex-start; 
     padding: 0;
 }
 
@@ -282,13 +282,13 @@
     transition: transform 0.5s ease-in-out;
     padding: 0;
     transform: translateX(0px);
-      /* Щоб приховати елементи, які виходять за межі */
+      
 }
 
 
 
 .brand-card {
-    width: 250px; /* Можна задати більшу або меншу ширину */
+    width: 250px; 
     flex-shrink: 0;
     height: auto;
     background-color: rgba(255, 255, 255, 0.05);
@@ -306,7 +306,7 @@
 
 .brand-card:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Тінь при наведенні */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); 
 }
 
 .brand-card img {
@@ -324,12 +324,12 @@
     cursor: pointer;
     z-index: 10;
     transition: transform 0.3s;
-    color: #8f83ff; /* Змінив колір стрілок для кращого вигляду */
+    color: #8f83ff; 
 }
 
 .slider-arrow:hover {
     transform: scale(1.2);
-    color: #5c54d1; /* Інший колір при наведенні для відгуку */
+    color: #5c54d1; 
 }
 
 .our-clients-text {
@@ -337,26 +337,26 @@
     max-width: 1200px;
     text-align: center;
     margin: 0 auto;
-    padding-bottom: 20px; /* Відступ знизу для гармонійного вигляду */
+    padding-bottom: 20px; 
 }
 
-/* Адаптивність для мобільних пристроїв */
+
 @media (max-width: 768px) {
     .our-background-partners-logos {
-        gap: 15px; /* Менші відступи між картками на мобільних */
+        gap: 15px; 
     }
 
     .brand-card {
-        max-width: 250px; /* Зменшуємо розмір карток на мобільних */
+        max-width: 250px; 
     }
 }
 
 @media (max-width: 500px) {
     .slider-arrow {
-        font-size: 25px; /* Зменшуємо розмір стрілок на мобільних */
+        font-size: 25px; 
     }
 
     .our-clients-text {
-        font-size: 30px; /* Зменшуємо розмір тексту на мобільних */
+        font-size: 30px; 
     }
 }
