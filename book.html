@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.css" />
 </head>
 <body>
   <header class="header">
@@ -35,6 +36,13 @@
         <label>
           Email
           <input type="email" name="email" placeholder="you@example.com" required />
+        </label>
+        <label>
+          Phone Number
+          <input type="tel" id="phone" name="phone" required />
+          <div id="phone-error" class="error-message" style="display: none; color: red;">
+            Please enter a valid phone number.
+          </div>
         </label>
         <label>
           Preferred Date
@@ -156,6 +164,15 @@
     form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
+  const phoneError = document.getElementById("phone-error");
+
+  if (!iti.isValidNumber()) {
+    phoneError.style.display = "block";
+    return;
+  } else {
+    phoneError.style.display = "none";
+  }
+
   const formData = new FormData(form);
 
   const payload = {
@@ -164,7 +181,8 @@
     date: formData.get("date"),
     time: formData.get("time"),
     photosessionTypeId: parseInt(formData.get("photosession_type")),
-    message: formData.get("message")
+    message: formData.get("message"),
+    phone: iti.getNumber()
   };
 
   try {
@@ -255,6 +273,33 @@
       showToast("Something went wrong. Please try again.", false);
     }
   });
+
+  const input = document.querySelector("#phone");
+
+  const iti = window.intlTelInput(input, {
+    preferredCountries: ["ua", "pl", "us", "gb"],
+    initialCountry: "auto",
+    geoIpLookup: function (success, failure) {
+      fetch("https://ipapi.co/json")
+        .then((res) => res.json())
+        .then((data) => success(data.country_code))
+        .catch(() => success("UA"));
+    },
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
+  });
+
+  const phoneError = document.getElementById("phone-error");
+  const form1 = document.querySelector(".book-form"); // Це твоя форма
+form1.addEventListener("submit", function (e) {     // Було form.addEventListener...
+  if (!iti.isValidNumber()) {
+    phoneError.style.display = "block";
+    return;
+  } else {
+    input.value = iti.getNumber(); // Приводимо до міжнародного формату
+  }
+  
+});
+
   
   function disableTimeOption(timeId) {
   const timeInput = document.getElementById(timeId);
@@ -308,5 +353,8 @@ function resetTimeOption(timeId) {
     });
 </script>
 <script type="module" src="./js/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js"></script>
+
 </body>
 </html>
